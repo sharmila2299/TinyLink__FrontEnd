@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import ToasterAlert from "../toaster/ToasterAlert";
 import Loader from "../loader/Loader";
 
-function Dashboard() {
+const Dashboard = () => {
   const [links, setLinks] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -14,7 +14,7 @@ function Dashboard() {
     try {
       setLoading(true);
       const response = await getAllTinyLinks();
-      setLinks(response.data);
+      setLinks(response.data.data || response.data);
     } catch (error) {
       toast.error(error?.message || "Error fetching links");
     } finally {
@@ -71,6 +71,6 @@ function Dashboard() {
       </main>
     </>
   );
-}
+};
 
 export default Dashboard;

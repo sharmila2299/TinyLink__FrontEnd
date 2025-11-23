@@ -5,7 +5,7 @@ import { toast } from "sonner";
 import Loader from "../loader/Loader";
 import ToasterAlert from "../toaster/ToasterAlert.jsx";
 
-function Stats() {
+const Stats = () => {
   const { code } = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -14,7 +14,7 @@ function Stats() {
     try {
       setLoading(true);
       const response = await getTinyLinkStats(code);
-      setData(response.data);
+      setData(response.data.data || response.data);
     } catch (err) {
       toast.error(err?.message || "Failed to load stats.");
     } finally {
@@ -63,6 +63,6 @@ function Stats() {
       </main>
     </>
   );
-}
+};
 
 export default Stats;

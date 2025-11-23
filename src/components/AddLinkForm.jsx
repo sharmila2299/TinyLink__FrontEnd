@@ -3,7 +3,7 @@ import { createTinyLink } from "../Services/tinyLink.js";
 import { toast } from "sonner";
 import Loader from "../loader/Loader";
 import ToasterAlert from "../toaster/ToasterAlert";
-function AddLinkForm({ onLinkCreated }) {
+const AddLinkForm = ({ onLinkCreated }) => {
   const [url, setUrl] = useState("");
   const [code, setCode] = useState("");
   const [loading, setLoading] = useState(false);
@@ -67,6 +67,6 @@ function AddLinkForm({ onLinkCreated }) {
       </form>
     </>
   );
-}
+};
 
 export default AddLinkForm;

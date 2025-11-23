@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-function LinkTable({ links, onDelete }) {
+const LinkTable = ({ links, onDelete }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5;
 
@@ -106,6 +106,6 @@ function LinkTable({ links, onDelete }) {
       </div>
     </div>
   );
-}
+};
 
 export default LinkTable;
