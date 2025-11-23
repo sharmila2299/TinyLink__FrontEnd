@@ -9,6 +9,7 @@ const Stats = () => {
   const { code } = useParams();
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const fetchStats = async () => {
     try {
@@ -30,33 +31,53 @@ const Stats = () => {
     <>
       {loading && <Loader />}
       <ToasterAlert />
+
       <main className="page">
         <section className="content">
           <div className="shorten-card stats-card">
             <div className="stats-header">
-              <h1 className="hero-title small">Stats for {code}</h1>
+              <h1 className="hero-title small mb-2">Stats for {code}</h1>
               <Link to="/" className="back-link">
                 ← Back
               </Link>
             </div>
 
-            {!data ? (
-              <div className="state-message">No stats found.</div>
+            {data ? (
+              <>
+                <div className="stat-item full">
+                  <span className="stat-label">Original URL</span>
+
+                  <p
+                    className={`long-url ${expanded ? "expanded" : ""}`}
+                    onClick={() =>
+                      window.innerWidth < 600 && setExpanded(!expanded)
+                    }
+                  >
+                    {data.target_url}
+                  </p>
+                </div>
+
+                <div className="stats-grid-new">
+                  <div className="stat-block">
+                    <span className="stat-label">Total Clicks</span>
+                    <h3 className="stat-value">{data.total_clicks}</h3>
+                  </div>
+
+                  <div className="stat-block">
+                    <span className="stat-label">Last Clicked</span>
+                    <h3 className="stat-value">
+                      {data.last_clicked || "Never"}
+                    </h3>
+                  </div>
+
+                  <div className="stat-block">
+                    <span className="stat-label">Created At</span>
+                    <h3 className="stat-value">{data.created_at}</h3>
+                  </div>
+                </div>
+              </>
             ) : (
-              <div className="stats-grid">
-                <div className="stat-item">
-                  <strong>Original URL:</strong> {data.target_url}
-                </div>
-                <div className="stat-item">
-                  <strong>Total Clicks:</strong> {data.total_clicks}
-                </div>
-                <div className="stat-item">
-                  <strong>Last Clicked:</strong> {data.last_clicked || "Never"}
-                </div>
-                <div className="stat-item">
-                  <strong>Created At:</strong> {data.created_at}
-                </div>
-              </div>
+              <div className="state-message">No stats found.</div>
             )}
           </div>
         </section>
